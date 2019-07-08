@@ -1,0 +1,43 @@
+<mvc:View controllerName="ui5_playground.controller.App" 
+  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+  xmlns:code="sap.ui.codeeditor" 
+  xmlns="sap.m" 
+  xmlns:l="sap.ui.layout">
+  <Page showHeader="false">
+    <content>
+      <l:Splitter orientation="Vertical">
+        <Page showHeader="false" id="resultContent"/>
+        <IconTabBar expanded="true" expandable="false">
+          <items>
+            <IconTabFilter text="{i18n>FileTab.XML}">
+              <code:CodeEditor value="{appData>/xml_value}" change="onXMLCodeChange" type="xml"/>
+            </IconTabFilter>
+            <IconTabFilter text="{i18n>FileTab.CSS}">
+              <code:CodeEditor type="css" change="onCSSCodeChange"/>
+            </IconTabFilter>
+            <IconTabFilter text="{i18n>FileTab.JSON}">
+              <code:CodeEditor value="{appData>/json_value}" type="json" change="onJSONCodeChange"/>
+            </IconTabFilter>
+          </items>
+        </IconTabBar>
+      </l:Splitter>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <MenuButton text="{appData>/theme}">
+          <menu>
+            <Menu itemSelected="onThemeChange">
+              <items>
+                <MenuItem text="sap_hcb" />
+                <MenuItem text="sap_ux" />
+                <MenuItem text="sap_bluecrystal" />
+                <MenuItem text="sap_belize"/>
+              </items>
+            </Menu>
+          </menu>
+        </MenuButton>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>
