@@ -59,7 +59,6 @@ Benefits:
 * Quick and easy start-up
 
 ### Built With
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [OpenUI5](https://openui5.hana.ondemand.com/)
 * [Static server](https://github.com/htammen/static_server)
 
