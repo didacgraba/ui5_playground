@@ -75,6 +75,8 @@ git clone https://github.com/didagb/ui5_playground.git
 ```
 2. Install NPM packages
 ```sh
+npm init
+npm install http-proxy
 npm install
 ```
 3. Access the project directory webapp on your pc and start the app
