@@ -33,6 +33,7 @@
                 <MenuItem text="sap_ux" />
                 <MenuItem text="sap_bluecrystal" />
                 <MenuItem text="sap_belize"/>
+                <MenuItem text="sap_fiori_3"/>
               </items>
             </Menu>
           </menu>
