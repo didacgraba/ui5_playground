@@ -1,9 +1,9 @@
 <mvc:View controllerName="ui5_playground.controller.App" 
-  xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+  xmlns:mvc="sap.ui.core.mvc"
   xmlns:code="sap.ui.codeeditor" 
   xmlns="sap.m" 
   xmlns:l="sap.ui.layout">
-  <Page showHeader="false">
+  <Page showHeader="false" enableScrolling="false">
     <content>
       <l:Splitter orientation="Vertical">
         <Page showHeader="false" id="resultContent"/>
@@ -24,8 +24,10 @@
     </content>
     <footer>
       <OverflowToolbar>
+        <Link text="{i18n>Button.GitProject}" press="onPressProjectButton" class="sapUiSmallMarginBegin"/>
         <ToolbarSpacer/>
-        <MenuButton text="{appData>/theme}">
+        <Button icon="sap-icon://sap-ui5" text="{i18n>Button.OpenUI5}" press="onPressOpenUI5Button"/>
+        <MenuButton text="{appData>/theme}" icon="sap-icon://palette">
           <menu>
             <Menu itemSelected="onThemeChange">
               <items>

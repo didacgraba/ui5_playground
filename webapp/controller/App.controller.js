@@ -8,9 +8,20 @@ sap.ui.define([
   return Controller.extend("ui5_playground.controller.App", {
 
     onInit: function () {
+      // Add CSS class to html body in order to be able to overwrite the shell header classes
+      $(document.body).addClass("ui5playgroundHtmlBody");
+
       this._initModels();
       this._initStyleSheet();
       this._initJSScript();
+    },
+
+    onPressOpenUI5Button: function () {
+      window.open("https://openui5.hana.ondemand.com");
+    },
+
+    onPressProjectButton: function () {
+      window.open("https://github.com/didagb/ui5_playground");
     },
 
     _initStyleSheet: function () {
