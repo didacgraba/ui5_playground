@@ -11,17 +11,17 @@
                 displayBlock="true">
         </script>
 
-<link rel="stylesheet" type="text/css" href="./webapp/css/style.css">
-
-<script>
-    sap.ui.getCore().attachInit(function () {
-    sap.ui.require(["sap/ui/core/mvc/XMLView"], function(oXMLView) {
-        oXMLView.create({
-        viewName: "ui5_playground.view.App"}).then(function(oView) {
-            oView.placeAt("content");
-        });
-        });
-    });
+        <link rel="stylesheet" type="text/css" href="./webapp/css/style.css">
+        
+        <script>
+            sap.ui.getCore().attachInit(function () {
+            sap.ui.require(["sap/ui/core/mvc/XMLView"], function(oXMLView) {
+                oXMLView.create({
+                viewName: "ui5_playground.view.App"}).then(function(oView) {
+                    oView.placeAt("content");
+                });
+                });
+            });
         </script>
     </head>
     <body class="sapUiBody" id="content">

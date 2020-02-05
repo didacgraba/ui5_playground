@@ -12,6 +12,9 @@
             <IconTabFilter text="{i18n>FileTab.XML}">
               <code:CodeEditor value="{appData>/xml_value}" change="onXMLCodeChange" type="xml"/>
             </IconTabFilter>
+            <IconTabFilter text="{i18n>FileTab.JS}">
+              <code:CodeEditor value="{appData>/js_value}" type="javascript" change="onJSCodeChange"/>
+            </IconTabFilter>
             <IconTabFilter text="{i18n>FileTab.CSS}">
               <code:CodeEditor type="css" change="onCSSCodeChange"/>
             </IconTabFilter>

@@ -11,9 +11,9 @@ sap.ui.define([
       // Add CSS class to html body in order to be able to overwrite the shell header classes
       $(document.body).addClass("ui5playgroundHtmlBody");
 
-      this._initModels();
       this._initStyleSheet();
-      this._initJSScript();
+      this._initUserScript();
+      this._initModels();
     },
 
     onPressOpenUI5Button: function () {
@@ -21,7 +21,7 @@ sap.ui.define([
     },
 
     onPressProjectButton: function () {
-      window.open("https://github.com/didagb/ui5_playground");
+      window.open("https://github.com/didacgraba/ui5_playground");
     },
 
     _initStyleSheet: function () {
@@ -31,9 +31,19 @@ sap.ui.define([
       document.getElementsByTagName('head')[0].appendChild(this._oStyleElement);
     },
 
-    _initJSScript: function () {
-      this._oScriptElement = window.document.createElement("script");
-      window.document.body.appendChild(this._oScriptElement);
+    _initUserScript: function () {
+      this._oScriptElement = document.createElement('script');
+  
+      this._oScriptElement.type = "text/javascript";
+      document.getElementsByTagName('head')[0].appendChild(this._oScriptElement);
+    },
+    
+    onJSCodeChange: function (oEvent) {
+      var sXMLValue = this._oAppModel.getProperty("/xml_value");
+
+      this._initUserScript();
+      this._oScriptElement.innerHTML = oEvent.getParameter("value");
+      this._loadXMLFragment(sXMLValue);
     },
 
     _initModels: function () {
@@ -42,18 +52,32 @@ sap.ui.define([
       });
 
       this._oAppModel = new sap.ui.model.json.JSONModel({
-        xml_value: '<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">\r\r' +
-          '</core:FragmentDefinition>',
-        json_value: '{\r\r}',
+        xml_value: '<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">\r' +
+        '\t<Page title="{/Page.Title}">\r'+
+        '\t\t<Button text="{/Button.text}" press="onButtonPress"/>\r'+
+        '\t</Page>\r'+
+        '</core:FragmentDefinition>',
+        js_value: 'function onButtonPress () {\r' +
+          '\talert("Button pressed!");\r' +
+        '}',
+        json_value: '{\r' +
+          '\t"Page.Title": "UI5 Playground Demo",\r' +
+          '\t"Button.text": "Press me!"' +
+        '\r}',
         theme: "sap_belize"
       });
 
-      this._oJSONModel = new sap.ui.model.json.JSONModel({
-      });
+      this._oJSONModel = new sap.ui.model.json.JSONModel({});
 
       this.getView().setModel(this._oI18n, "i18n");
       this.getView().setModel(this._oAppModel, "appData");
       this.getView().setModel(this._oJSONModel, undefined);
+
+      this._loadXMLFragment(this._oAppModel.getProperty("/xml_value"));
+      this._initUserScript();
+      this._oScriptElement.innerHTML = this._oAppModel.getProperty("/js_value");
+      
+      this._oJSONModel.setData(JSON.parse(this._oAppModel.getProperty("/json_value")));
     },
 
     onJSONCodeChange: function (oEvent) {
@@ -74,15 +98,22 @@ sap.ui.define([
     },
 
     onXMLCodeChange: function (oEvent) {
-      var that = this,
-        sValue = oEvent.getParameter("value");
+      var sJSCode = this._oAppModel.getProperty("/js_value");
 
-      if (sValue) {
+      this._oScriptElement.innerHTML = sJSCode;
+      this._loadXMLFragment(oEvent.getParameter("value"));
+    },
+
+    _loadXMLFragment: function (sXML) {
+      var that = this;
+
+      if (sXML) {
         sap.ui.require(["sap/ui/core/Fragment"], function (Fragment) {
           try {
             Fragment.load({
               type: "XML",
-              definition: sValue
+              definition: sXML,
+              controller: that
             }).then(function (oFragment) {
               that.removeContent();
               that.addContent(oFragment);
