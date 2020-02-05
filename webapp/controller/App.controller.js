@@ -14,6 +14,7 @@ sap.ui.define([
       this._initStyleSheet();
       this._initUserScript();
       this._initModels();
+      this._initComponents();
     },
 
     onPressOpenUI5Button: function () {
@@ -46,6 +47,14 @@ sap.ui.define([
       this._loadXMLFragment(sXMLValue);
     },
 
+    _initComponents: function () {
+      this._loadXMLFragment(this._oAppModel.getProperty("/xml_value"));
+      this._initUserScript();
+      this._oScriptElement.innerHTML = this._oAppModel.getProperty("/js_value");
+      
+      this._oJSONModel.setData(JSON.parse(this._oAppModel.getProperty("/json_value")));
+    },
+
     _initModels: function () {
       this._oI18n = new ResourceModel({
         bundleName: "ui5_playground.i18n.i18n"
@@ -53,12 +62,12 @@ sap.ui.define([
 
       this._oAppModel = new sap.ui.model.json.JSONModel({
         xml_value: '<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">\r' +
-        '\t<Page title="{/Page.Title}">\r'+
-        '\t\t<Button text="{/Button.text}" press="onButtonPress"/>\r'+
+        '\t<Page title="{/Page.Title}" class="sapUiContentPadding">\r'+
+        '\t\t<Button type="Emphasized" text="{/Button.text}" press="onButtonPress"/>\r'+
         '\t</Page>\r'+
         '</core:FragmentDefinition>',
         js_value: 'function onButtonPress () {\r' +
-          '\talert("Button pressed!");\r' +
+          '\treturn new sap.m.MessageToast.show("Button pressed!!!");\r' +
         '}',
         json_value: '{\r' +
           '\t"Page.Title": "UI5 Playground Demo",\r' +
@@ -72,12 +81,6 @@ sap.ui.define([
       this.getView().setModel(this._oI18n, "i18n");
       this.getView().setModel(this._oAppModel, "appData");
       this.getView().setModel(this._oJSONModel, undefined);
-
-      this._loadXMLFragment(this._oAppModel.getProperty("/xml_value"));
-      this._initUserScript();
-      this._oScriptElement.innerHTML = this._oAppModel.getProperty("/js_value");
-      
-      this._oJSONModel.setData(JSON.parse(this._oAppModel.getProperty("/json_value")));
     },
 
     onJSONCodeChange: function (oEvent) {
