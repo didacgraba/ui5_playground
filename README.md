@@ -114,4 +114,4 @@ Dídac GB - didacgraba@gmail.com
 [license-url]: https://choosealicense.com/licenses/mit
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/didacgb
-[product-screenshot]: https://raw.githubusercontent.com/didagb/ui5_playground/master/sample.png
+[product-screenshot]: https://raw.githubusercontent.com/didagb/ui5_playground/master/sample.gif
